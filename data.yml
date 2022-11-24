@@ -18,7 +18,7 @@ cards:
   Small fusion reactor:
     points: 90
     needs:
-      - 4 astronauts
+      - 400 astronauts
     provides:
       - 420 W
   Advanced rover station:

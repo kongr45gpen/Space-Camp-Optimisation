@@ -21,6 +21,11 @@ is_a_card(name) = lowercase(name) ∈ lowercase.(keys(data["cards"]))
 
 name_to_id(name) = cards[name].id
 
+clean_identifier(str) = str |>
+    s -> replace(s, r"[^a-zA-Z0-9\s]" => "") |>
+    split |> 
+    s -> lowercase(join(s, "_"))
+
 generate_identifier(str) = str |>
     s -> replace(s, r"[^a-zA-Z0-9\s]" => "") |>
     split |> 
@@ -112,7 +117,7 @@ function add_to_basin_if_not_exists(resource)
         resource_basin[resource] = Pair(Dict(), Dict())
         
         if is_a_card(resource)
-            resource_basin[resource][2][resource] = 1 / Safe_Number
+            resource_basin[resource][2][resource] = 1
         end
     end
 end
@@ -128,7 +133,7 @@ for card ∈ cards
         else
             push!(card[2].needs_expanded, Dict(cards[need[1]].id => Safe_Number))
             add_to_basin_if_not_exists(need[1])
-            resource_basin[need[1]][1][card[1]] = 1
+            resource_basin[need[1]][1][card[1]] = Safe_Number
         end
     end
 
@@ -178,14 +183,20 @@ quantity_equation = join(map(c -> c.id, values(cards)), " + ") * " <= " * string
 
 maximise_equation = join(map(c -> string(c.points) * "*" * c.id, values(cards)), " + ")
 
-# intermediates = map(res ->)
+intermediates = map(res -> begin
+        name = clean_identifier(res[1])
+        rhs = map(c -> string(c[2]) * "*" * name_to_id(c[1]), collect(res[2][2]))
+        name * " = " * join(rhs, " + ")
+    end,
+    collect(resource_basin))
+push!(intermediates, "Score = " * maximise_equation)
 
 resource_equations = map(res -> begin
-        lhs = map(c -> string(c[2]) * "*" * name_to_id(c[1]), collect(res[1]))
-        rhs = map(c -> string(c[2]) * "*" * name_to_id(c[1]), collect(res[2]))
-        join(lhs, " + ") * " <= " * join(rhs, " + ")
+        lhs = map(c -> string(c[2]) * "*" * name_to_id(c[1]), collect(res[2][1]))
+        rhs = clean_identifier(res[1])
+        join(lhs, " + ") * " <= " * rhs
     end,
-    values(resource_basin)
+    collect(resource_basin)
 )
 
 
@@ -193,7 +204,9 @@ resource_equations = map(res -> begin
 variables = map(c -> string(c.id) * " = 0, >=0, <=" * string(c.quantity), values(cards))
 
 # Put it all together
-big_string = "Variables\n" * join(variables, "\n") * "\nEnd Variables\n\nEquations\n" *
+big_string = "Variables\n" * join(variables, "\n") * "\nEnd Variables\n\n" *
+    "Intermediates\n" * join(intermediates, "\n") * "\nEnd Intermediates\n\n" *
+    "Equations\n" *
     "maximize " * maximise_equation * "\n\n" * quantity_equation * "\n" * join(resource_equations, "\n") *
     "\n" * "End Equations"
 
