@@ -1,0 +1,156 @@
+game:
+  max_cards: 10
+  resources:
+    astronaut:
+      needs:
+        - 1 Air
+        - 1 Food
+        - 1 Water
+        - 1 Bed
+cards:
+  High-tech laboratory:
+    points: 95
+    needs:
+      - 100 W
+      - 3 astronauts
+      - Air
+      - Advanced rover station
+  Small fusion reactor:
+    points: 90
+    needs:
+      - 4 astronauts
+    provides:
+      - 420 W
+  Advanced rover station:
+    points: 60
+    needs:
+      - 40 W
+      - Advanced control room
+  Small laboratory:
+    points: 50
+    needs:
+      - 1 astronauts
+      - 10 W
+      - Water
+      - Air
+    quantity: 3
+  Large laboratory:
+    points: 80
+    needs:
+      - 2 astronauts
+      - 80 W
+      - Water
+      - Air
+  Advanced control room:
+    points: 70
+    needs:
+      - 3 astronauts
+      - 20 W
+      - Air
+      - Medicine
+  Advanced EVA room:
+    points: 70
+    needs:
+      - 30 W
+      - Water
+      - Air
+      - Advanced control room
+      - Advanced medical bay
+  "Control room + EVA preparation room":
+    points: 70
+    needs:
+      - 2 astronauts
+      - 25 W
+      - Water
+      - Air
+      - Medicine
+  Simple rover station:
+    points: 45
+    needs:
+      - 20 W
+  Advanced medical bay:
+    points: 50
+    needs:
+      - 20 W
+      - Water
+      - Air
+    provides:
+      - Medicine
+  "Medical bay + Gym":
+    points: 30
+    needs:
+      - 15 W
+      - Water
+      - Air
+    provides:
+      - Medicine
+  Large gym:
+    points: 30
+    needs:
+      - 15 W
+      - Water
+      - Air
+  Hydroponics:
+    points: 30
+    needs:
+      - 1 astronauts
+      - 20 W
+      - Water
+      - Air
+    provides:
+      - Food for 4 astronauts
+    quantity: 2
+  High-tech hydroponics:
+    points: 80
+    needs:
+      - 1 astronauts
+      - 50 W
+      - Water
+      - Air
+    provides:
+      - Food for 8 astronauts
+    quantity: 3
+  Large water and air purification system:
+    points: 50
+    needs:
+      - 80 W
+    provides:
+      - Water for 18 astronauts
+      - Air for 18 astronauts
+  "Sleeping quarters + Communal facility":
+    points: 30
+    needs:
+      - 25 W
+      - Water
+      - Air
+    provides:
+      - Beds for 4 astronauts
+  Sleeping quarters (medium):
+    points: 40
+    needs:
+      - 20 W
+      - Air
+    provides:
+      - Beds for 8 astronauts
+    quantity: 3
+  Communal facility (medium):
+    points: 40
+    needs:
+      - 20 W
+      - Water
+      - Air
+  Small water and air purification system:
+    points: 30
+    needs:
+      - 20 W
+    provides:
+      - Water for 6 astronauts
+      - Air for 6 astronauts
+    quantity: 2
+  Solar panels:
+    points: 30
+    needs:
+      - 1 astronauts
+    provides:
+      - 70 W
+    quantity: 5
