@@ -7,6 +7,8 @@ game:
         - 1 Food
         - 1 Water
         - 1 Bed
+  needs:
+    - 1 science
 cards:
   High-tech laboratory:
     points: 95
@@ -15,10 +17,12 @@ cards:
       - 3 astronauts
       - Air
       - Advanced rover station
+    provides:
+      - Science
   Small fusion reactor:
     points: 90
     needs:
-      - 400 astronauts
+      - 4 astronauts
     provides:
       - 420 W
   Advanced rover station:
@@ -33,6 +37,8 @@ cards:
       - 10 W
       - Water
       - Air
+    provides:
+      - Science
     quantity: 3
   Large laboratory:
     points: 80
@@ -41,6 +47,8 @@ cards:
       - 80 W
       - Water
       - Air
+    provides:
+      - 1 Science
   Advanced control room:
     points: 70
     needs:
@@ -56,6 +64,8 @@ cards:
       - Air
       - Advanced control room
       - Advanced medical bay
+    provides:
+      - 1 science
   "Control room + EVA preparation room":
     points: 70
     needs:
@@ -64,10 +74,14 @@ cards:
       - Water
       - Air
       - Medicine
+    provides:
+      - 1 Science
   Simple rover station:
     points: 45
     needs:
       - 20 W
+    provides:
+      - 1 Science
   Advanced medical bay:
     points: 50
     needs:
@@ -125,6 +139,7 @@ cards:
       - Air
     provides:
       - Beds for 4 astronauts
+      - Tables for 4 astronauts
   Sleeping quarters (medium):
     points: 40
     needs:

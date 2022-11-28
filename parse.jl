@@ -34,7 +34,7 @@ generate_identifier(str) = str |>
     s -> "int_" * s
 
 
-function resource_parser(text, default_count::Int)
+function resource_parser(text, default_count::Real)
     # regex101 link:
     # https://regex101.com/r/CExim7/2
     re = r"^(((?<res1>.*?)s?\s+for\s+(?<num1>[0-9]+)\s+(?<parent1>.*?)s?)|((?<num2>[0-9]+)?\s*(?<res2>.*?)s?))(x(?<repeat>[0-9.]+))?$"
@@ -109,6 +109,7 @@ end
 cards::Dict{String, Card} = Dict( yaml_to_card(card, generate_identifier(card[1])) for (i, card) ∈ enumerate(data["cards"]) )
 
 @info "Cards parsed successfully: " cards
+@info "Possible different options: " binomial(sum(map(c -> c.quantity, values(cards))), data["game"]["max_cards"])
 
 resource_basin::Dict{String, Pair{Dict{String,Real}, Dict{String,Real}}} = Dict()
 
@@ -169,12 +170,14 @@ for res ∈ collect(resource_basin)
     name, resource = res
     if isempty(resource[1])
         @warn "No card needs the $(name) resource"
-        delete!(resource_basin, name)
+        # delete!(resource_basin, name)
     elseif isempty(resource[2])
         @error "There are no cards that provide the $(name) resource"
         delete!(resource_basin, name)
     end
 end
+
+raw_resources_needed = [ resource_parser(r, 1) for r in data["game"]["needs"]]
 
 @info "Cards expanded successfully" resource_basin
 
@@ -196,18 +199,27 @@ resource_equations = map(res -> begin
         rhs = clean_identifier(res[1])
         join(lhs, " + ") * " <= " * rhs
     end,
-    collect(resource_basin)
+    filter(r -> !isempty(r[2][1]), collect(resource_basin))
+)
+
+raw_resource_equations = map(res -> begin
+    lhs = clean_identifier(res[1])
+    rhs = string(res[2])
+    lhs * " >= " * rhs
+end,
+collect(raw_resources_needed)
 )
 
 
-
-variables = map(c -> string(c.id) * " = 0, >=0, <=" * string(c.quantity), values(cards))
+variables = map(c -> string(c.id) * " = 0, >= 0, <= " * string(c.quantity), values(cards))
 
 # Put it all together
 big_string = "Variables\n" * join(variables, "\n") * "\nEnd Variables\n\n" *
     "Intermediates\n" * join(intermediates, "\n") * "\nEnd Intermediates\n\n" *
     "Equations\n" *
-    "maximize " * maximise_equation * "\n\n" * quantity_equation * "\n" * join(resource_equations, "\n") *
+    "maximize " * maximise_equation * "\n\n" * quantity_equation *
+    "\n" * join(resource_equations, "\n") *
+    "\n" * join(raw_resource_equations, "\n") *
     "\n" * "End Equations"
 
 @info "Generated APM output"

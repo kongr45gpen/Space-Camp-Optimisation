@@ -1,0 +1,53 @@
+Variables
+int_cont_room_eva_prep_room = 0, >= 0, <= 1
+int_slee_quar_medi = 0, >= 0, <= 3
+int_high_hydr = 0, >= 0, <= 3
+int_hydr = 0, >= 0, <= 2
+int_larg_wate_and_air_puri_syst = 0, >= 0, <= 1
+int_slee_quar_comm_faci = 0, >= 0, <= 1
+int_adva_eva_room = 0, >= 0, <= 1
+int_sola_pane = 0, >= 0, <= 5
+int_simp_rove_stat = 0, >= 0, <= 1
+int_larg_labo = 0, >= 0, <= 1
+int_comm_faci_medi = 0, >= 0, <= 1
+int_smal_labo = 0, >= 0, <= 3
+int_high_labo = 0, >= 0, <= 1
+int_medi_bay_gym = 0, >= 0, <= 1
+int_adva_rove_stat = 0, >= 0, <= 1
+int_smal_wate_and_air_puri_syst = 0, >= 0, <= 2
+int_larg_gym = 0, >= 0, <= 1
+int_smal_fusi_reac = 0, >= 0, <= 1
+int_adva_cont_room = 0, >= 0, <= 1
+int_adva_medi_bay = 0, >= 0, <= 1
+End Variables
+
+Intermediates
+water = 18*int_larg_wate_and_air_puri_syst + 6*int_smal_wate_and_air_puri_syst
+science = 1*int_cont_room_eva_prep_room + 1*int_larg_labo + 1*int_smal_labo + 1*int_high_labo + 1*int_adva_eva_room + 1*int_simp_rove_stat
+food = 8*int_high_hydr + 4*int_hydr
+medicine = 1*int_medi_bay_gym + 1*int_adva_medi_bay
+bed = 8*int_slee_quar_medi + 4*int_slee_quar_comm_faci
+table = 4*int_slee_quar_comm_faci
+w = 420*int_smal_fusi_reac + 70*int_sola_pane
+advanced_rover_station = 1*int_adva_rove_stat
+air = 18*int_larg_wate_and_air_puri_syst + 6*int_smal_wate_and_air_puri_syst
+advanced_control_room = 1*int_adva_cont_room
+advanced_medical_bay = 1*int_adva_medi_bay
+Score = 70*int_cont_room_eva_prep_room + 40*int_slee_quar_medi + 80*int_high_hydr + 30*int_hydr + 50*int_larg_wate_and_air_puri_syst + 30*int_slee_quar_comm_faci + 70*int_adva_eva_room + 30*int_sola_pane + 45*int_simp_rove_stat + 80*int_larg_labo + 40*int_comm_faci_medi + 50*int_smal_labo + 95*int_high_labo + 30*int_medi_bay_gym + 60*int_adva_rove_stat + 30*int_smal_wate_and_air_puri_syst + 30*int_larg_gym + 90*int_smal_fusi_reac + 70*int_adva_cont_room + 50*int_adva_medi_bay
+End Intermediates
+
+Equations
+maximize 70*int_cont_room_eva_prep_room + 40*int_slee_quar_medi + 80*int_high_hydr + 30*int_hydr + 50*int_larg_wate_and_air_puri_syst + 30*int_slee_quar_comm_faci + 70*int_adva_eva_room + 30*int_sola_pane + 45*int_simp_rove_stat + 80*int_larg_labo + 40*int_comm_faci_medi + 50*int_smal_labo + 95*int_high_labo + 30*int_medi_bay_gym + 60*int_adva_rove_stat + 30*int_smal_wate_and_air_puri_syst + 30*int_larg_gym + 90*int_smal_fusi_reac + 70*int_adva_cont_room + 50*int_adva_medi_bay
+
+int_cont_room_eva_prep_room + int_slee_quar_medi + int_high_hydr + int_hydr + int_larg_wate_and_air_puri_syst + int_slee_quar_comm_faci + int_adva_eva_room + int_sola_pane + int_simp_rove_stat + int_larg_labo + int_comm_faci_medi + int_smal_labo + int_high_labo + int_medi_bay_gym + int_adva_rove_stat + int_smal_wate_and_air_puri_syst + int_larg_gym + int_smal_fusi_reac + int_adva_cont_room + int_adva_medi_bay <= 10
+2*int_cont_room_eva_prep_room + 1*int_high_hydr + 1*int_hydr + 0.004761904761904762*int_slee_quar_comm_faci + 0.004761904761904762*int_adva_eva_room + 1*int_sola_pane + 2*int_larg_labo + 0.004761904761904762*int_comm_faci_medi + 1*int_smal_labo + 3*int_high_labo + 0.004761904761904762*int_medi_bay_gym + 0.004761904761904762*int_larg_gym + 4*int_smal_fusi_reac + 3*int_adva_cont_room + 0.004761904761904762*int_adva_medi_bay <= water
+2*int_cont_room_eva_prep_room + 1*int_high_hydr + 2*int_larg_labo + 1*int_smal_labo + 1*int_hydr + 3*int_high_labo + 4*int_smal_fusi_reac + 1*int_sola_pane + 3*int_adva_cont_room <= food
+0.004761904761904762*int_cont_room_eva_prep_room + 0.004761904761904762*int_adva_cont_room <= medicine
+2*int_cont_room_eva_prep_room + 1*int_high_hydr + 2*int_larg_labo + 1*int_smal_labo + 1*int_hydr + 3*int_high_labo + 4*int_smal_fusi_reac + 1*int_sola_pane + 3*int_adva_cont_room <= bed
+25*int_cont_room_eva_prep_room + 20*int_slee_quar_medi + 50*int_high_hydr + 20*int_hydr + 80*int_larg_wate_and_air_puri_syst + 25*int_slee_quar_comm_faci + 30*int_adva_eva_room + 20*int_simp_rove_stat + 80*int_larg_labo + 20*int_comm_faci_medi + 10*int_smal_labo + 100*int_high_labo + 15*int_medi_bay_gym + 40*int_adva_rove_stat + 20*int_smal_wate_and_air_puri_syst + 15*int_larg_gym + 20*int_adva_cont_room + 20*int_adva_medi_bay <= w
+0.004761904761904762*int_high_labo <= advanced_rover_station
+2*int_cont_room_eva_prep_room + 0.004761904761904762*int_slee_quar_medi + 1*int_high_hydr + 1*int_hydr + 0.004761904761904762*int_slee_quar_comm_faci + 0.004761904761904762*int_adva_eva_room + 1*int_sola_pane + 2*int_larg_labo + 0.004761904761904762*int_comm_faci_medi + 1*int_smal_labo + 3*int_high_labo + 0.004761904761904762*int_medi_bay_gym + 0.004761904761904762*int_larg_gym + 4*int_smal_fusi_reac + 3*int_adva_cont_room + 0.004761904761904762*int_adva_medi_bay <= air
+0.004761904761904762*int_adva_eva_room + 0.004761904761904762*int_adva_rove_stat <= advanced_control_room
+0.004761904761904762*int_adva_eva_room <= advanced_medical_bay
+science >= 1
+End Equations
