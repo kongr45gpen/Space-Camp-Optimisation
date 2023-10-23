@@ -1,0 +1,146 @@
+game:
+  max_cards: 15
+  resources:
+    astronaut:
+      needs:
+        - 1 Bed
+        - 1 Food
+  needs:
+    - 2000 L
+cards:
+  Solar panel:
+    cost: 600
+    provides:
+      - 400 W
+    needs:
+      - 400 Wh
+  RTG:
+    cost: 20000
+    provides:
+      - 800 W
+  Battery NiCd:
+    cost: 100
+    provides:
+      - 200 Wh
+  Battery LiIon:
+    cost: 200
+    provides:
+      - 600 Wh
+  Antenna Rotator:
+    cost: 30
+    provides:
+      - 800 GB
+    needs:
+      - 90 W
+      - 40 L
+  Antenna Static:
+    cost: 20
+    provides:
+      - 800 GB
+    needs:
+      - 60 W
+      - 800 GB
+  Biology Experiment:
+    points: 5
+    cost: 5000
+    needs:
+      - 40 W
+      - 50 GB
+  Camera:
+    points: 3
+    cost: 100
+    needs:
+      - 100 W
+      - 600 GB
+  Particle Detector:
+    points: 7
+    cost: 200
+    needs:
+      - 300 W
+      - 300 GB
+      - 10 L
+  Magnetometer:
+    points: 4
+    cost: 10
+    needs:
+      - 20 W
+      - 200 GB
+  Robotic Arm:
+    points: 1
+    cost: 20000
+    needs:
+      - 150 W
+      - 10 GB
+      - 200 L
+  Atmospheric Sensor:
+    points: 6
+    cost: 200
+    needs:
+      - 150 W
+      - 200 GB
+      - 10 L
+  Fuel Tank S:
+    cost: 400
+    provides:
+      - 400 L
+  Fuel Tank L:
+    cost: 1000
+    provides:
+      - 2000 L
+  Nursery:
+    points: 3
+    cost: 3000
+    needs:
+      - 200 W
+      - 10 GB
+      - 1 astronauts
+  Kitchen:
+    cost: 2000
+    needs:
+      - 100 W
+    provides:
+      - 1000 foods
+  Laboratory L:
+    points: 2 # this is complicated
+    cost: 5000
+    needs:
+      - 300 W
+      - 3 astronauts
+  Living Quarters L:
+    cost: 1000
+    needs:
+      - 50 W
+    provides:
+      - 3 beds
+  Gym:
+    points: 1
+    cost: 500
+    needs:
+      - 10 GB
+      - 30 W
+  EVA:
+    points: 2
+    cost: 10000
+    needs:
+      - 10 GB
+      - 1 astronauts
+  Laboratory S:
+    points: 1 # this is complicated
+    cost: 2000
+    needs:
+      - 200 W
+      - 1 astronauts
+  Living Quarters S:
+    cost: 500
+    needs:
+      - 20 W
+    provides:
+      - 1 bed
+  Sample Return:
+    needs:
+      - 2000 L
+    provides:
+      - 10000 GB
+
+  
+  

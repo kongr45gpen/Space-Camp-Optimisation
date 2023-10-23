@@ -1,0 +1,48 @@
+Variables
+int_part_dete = 0, >= 0, <= 1
+int_samp_retu = 0, >= 0, <= 1
+int_came = 0, >= 0, <= 1
+int_livi_quar_l = 0, >= 0, <= 1
+int_kitc = 0, >= 0, <= 1
+int_eva = 0, >= 0, <= 1
+int_labo_l = 0, >= 0, <= 1
+int_gym = 0, >= 0, <= 1
+int_sola_pane = 0, >= 0, <= 1
+int_biol_expe = 0, >= 0, <= 1
+int_rtg = 0, >= 0, <= 1
+int_fuel_tank_s = 0, >= 0, <= 1
+int_robo_arm = 0, >= 0, <= 1
+int_nurs = 0, >= 0, <= 1
+int_labo_s = 0, >= 0, <= 1
+int_atmo_sens = 0, >= 0, <= 1
+int_batt_liio = 0, >= 0, <= 1
+int_magn = 0, >= 0, <= 1
+int_ante_rota = 0, >= 0, <= 1
+int_ante_stat = 0, >= 0, <= 1
+int_livi_quar_s = 0, >= 0, <= 1
+int_batt_nicd = 0, >= 0, <= 1
+int_fuel_tank_l = 0, >= 0, <= 1
+End Variables
+
+Intermediates
+w = 400*int_sola_pane + 800*int_rtg
+gb = 10000*int_samp_retu + 800*int_ante_rota + 800*int_ante_stat
+bed = 3*int_livi_quar_l + 1*int_livi_quar_s
+wh = 600*int_batt_liio + 200*int_batt_nicd
+l = 400*int_fuel_tank_s + 2000*int_fuel_tank_l
+food = 1000*int_kitc
+Score = 7*int_part_dete + 3*int_came + 2*int_eva + 2*int_labo_l + 1*int_gym + 5*int_biol_expe + 1*int_robo_arm + 3*int_nurs + 1*int_labo_s + 6*int_atmo_sens + 4*int_magn
+End Intermediates
+
+Equations
+maximize 7*int_part_dete + 3*int_came + 2*int_eva + 2*int_labo_l + 1*int_gym + 5*int_biol_expe + 1*int_robo_arm + 3*int_nurs + 1*int_labo_s + 6*int_atmo_sens + 4*int_magn
+
+int_part_dete + int_samp_retu + int_came + int_livi_quar_l + int_kitc + int_eva + int_labo_l + int_gym + int_sola_pane + int_biol_expe + int_rtg + int_fuel_tank_s + int_robo_arm + int_nurs + int_labo_s + int_atmo_sens + int_batt_liio + int_magn + int_ante_rota + int_ante_stat + int_livi_quar_s + int_batt_nicd + int_fuel_tank_l <= 15
+300*int_part_dete + 100*int_came + 50*int_livi_quar_l + 100*int_kitc + 300*int_labo_l + 30*int_gym + 40*int_biol_expe + 200*int_nurs + 200*int_labo_s + 150*int_robo_arm + 150*int_atmo_sens + 20*int_magn + 90*int_ante_rota + 60*int_ante_stat + 20*int_livi_quar_s <= w
+10*int_gym + 300*int_part_dete + 50*int_biol_expe + 200*int_atmo_sens + 600*int_came + 200*int_magn + 10*int_eva + 800*int_ante_stat + 10*int_robo_arm + 10*int_nurs <= gb
+1*int_labo_s + 1*int_eva + 3*int_labo_l + 1*int_nurs <= bed
+400*int_sola_pane <= wh
+10*int_part_dete + 2000*int_samp_retu + 10*int_atmo_sens + 40*int_ante_rota + 200*int_robo_arm <= l
+1*int_labo_s + 1*int_eva + 3*int_labo_l + 1*int_nurs <= food
+l >= 2000
+End Equations
