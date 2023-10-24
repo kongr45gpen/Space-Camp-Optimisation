@@ -33,9 +33,11 @@ for file in sorted(Path(".").glob("outputs/*.json")):
     for var, quant in content["intermediates"].items():
         if var in ["Score", "Cost"]:
             print("[bold]{}: [green]{:.0f}[/green][/bold]".format(var, quant), end="      ")
+        elif var in ["xperience", "price", "efficiency"]:
+            continue
         else:
             print("{}: {:.0f}".format(var, quant), end="    ")
-    print("€/Scor: [green]{:.2f}".format(content["intermediates"]["Cost"]/content["intermediates"]["Score"]))
+    print("€/Score: [green]{:.2f}".format(content["intermediates"]["Cost"]/content["intermediates"]["Score"]), end="      ")
     print("Cards: [yellow]{:.0f}".format(total_cards))
     print()
     print()

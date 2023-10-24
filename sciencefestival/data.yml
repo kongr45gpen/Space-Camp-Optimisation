@@ -5,6 +5,7 @@ game:
       needs:
         - 1 Bed
         - 1 Food
+        - 1 Harbor
   needs:
     - 2000 L
 cards:
@@ -42,7 +43,7 @@ cards:
       - 800 GB
     needs:
       - 60 W
-      - 800 GB
+      - 200 L
   Biology Experiment:
     points: 5
     cost: 5000
@@ -108,7 +109,6 @@ cards:
     cost: 2000
     needs:
       - 100 W
-      - 5000 GB
     provides:
       - 40 foods
   Laboratory L:
@@ -124,7 +124,7 @@ cards:
       - 50 W
     provides:
       - 3 beds
-      - 1000 sports 
+      - 40 sports
     quantity: 3
   Gym:
     points: 1
@@ -152,14 +152,14 @@ cards:
       - 20 W
     provides:
       - 1 bed
-      - 1000 sports
+      - 40 sports
     quantity: 3
   Sample Return:
     size: 0
     needs:
       - 2000 L
     provides:
-      - 10000 GB
+      - 40 harbor
 
   
   

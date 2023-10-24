@@ -2,6 +2,8 @@
 
 import apm2gekko
 from importlib import reload
+from rich import print as rprint
+from rich.padding import Padding
 
 def save_results(filename):
     results = {
@@ -38,6 +40,8 @@ def save_results(filename):
 
     print(highlight(json.dumps(results, indent=2), JsonLexer(), TerminalFormatter()))
 
+    rprint("Just finished with [b]{}.json[/b], moving forward...".format(filename))
+
     return s.xperience.VALUE[0], s.price.VALUE[0]
 
 apm2gekko.convertAPM("system.apm")
@@ -67,8 +71,9 @@ reload(s)
 
 #%% No astronaut solve
 
-# Provide no beds for astronauts
+# Provide no beds for astronauts but provide enough sample return
 s.m.Equation(s.bed == 0)
+s.m.Equation(s.int_samp_retu == 1)
 #
 
 s.m.solve()
@@ -114,17 +119,17 @@ s.m._objectives[0] = 'minimize ((price)/(xperience + 0.01))'
 s.m.Equation(s.xperience >= 1)
 s.m.solve(disp=True)
 
-save_results("zcheapest_max_1")
+save_results("zcheapest_1")
 
 s.m.Equation(s.efficiency > s.efficiency.VALUE[0] * 1.01)
 s.m.solve(disp=True)
 
-save_results("zcheapest_max_2")
+save_results("zcheapest_2")
 
 s.m.Equation(s.efficiency > s.efficiency.VALUE[0] * 1.01)
 s.m.solve(disp=True)
 
-save_results("zcheapest_max_3")
+save_results("zcheapest_3")
 
 reload(s)
 
