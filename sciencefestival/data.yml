@@ -55,7 +55,7 @@ cards:
     points: 3
     cost: 100
     needs:
-      - 100 W
+      - 50 W
       - 600 GB
     quantity: 2
   Particle Detector:
@@ -84,29 +84,29 @@ cards:
     points: 6
     cost: 200
     needs:
-      - 150 W
-      - 200 GB
+      - 200 W
+      - 300 GB
       - 10 L
     quantity: 2
   Fuel Tank S:
     cost: 400
     provides:
-      - 400 L
+      - 400 L #!!!
     quantity: 4
   Fuel Tank L:
-    cost: 1000
+    cost: 2500
     provides:
       - 2000 L
     quantity: 2
   Nursery:
-    points: 3
+    points: 4
     cost: 3000
     needs:
       - 200 W
       - 10 GB
       - 1 astronauts
   Kitchen:
-    cost: 2000
+    cost: 4000
     needs:
       - 100 W
     provides:
@@ -123,18 +123,18 @@ cards:
     needs:
       - 50 W
     provides:
-      - 3 beds
+      - 2 beds
       - 40 sports
     quantity: 3
   Gym:
-    points: 1
+    points: 2
     cost: 500
     needs:
       - 10 GB
       - 30 W
       - 1 sport
   EVA:
-    points: 2
+    points: 3
     cost: 10000
     needs:
       - 10 GB
@@ -143,7 +143,7 @@ cards:
     points: +1x
     cost: 2000
     needs:
-      - 200 W
+      - 150 W
       - 1 astronauts
     quantity: 3
   Living Quarters S:
