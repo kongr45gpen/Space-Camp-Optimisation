@@ -14,6 +14,7 @@ cards:
       - 400 W
     needs:
       - 400 Wh
+    quantity: 4
   RTG:
     cost: 20000
     provides:
@@ -22,10 +23,12 @@ cards:
     cost: 100
     provides:
       - 200 Wh
+    quantity: 4
   Battery LiIon:
     cost: 200
     provides:
       - 600 Wh
+    quantity: 3
   Antenna Rotator:
     cost: 30
     provides:
@@ -46,12 +49,14 @@ cards:
     needs:
       - 40 W
       - 50 GB
+    quantity: 2
   Camera:
     points: 3
     cost: 100
     needs:
       - 100 W
       - 600 GB
+    quantity: 2
   Particle Detector:
     points: 7
     cost: 200
@@ -59,12 +64,14 @@ cards:
       - 300 W
       - 300 GB
       - 10 L
+    quantity: 2
   Magnetometer:
     points: 4
     cost: 10
     needs:
       - 20 W
       - 200 GB
+    quantity: 2
   Robotic Arm:
     points: 1
     cost: 20000
@@ -79,14 +86,17 @@ cards:
       - 150 W
       - 200 GB
       - 10 L
+    quantity: 2
   Fuel Tank S:
     cost: 400
     provides:
       - 400 L
+    quantity: 4
   Fuel Tank L:
     cost: 1000
     provides:
       - 2000 L
+    quantity: 2
   Nursery:
     points: 3
     cost: 3000
@@ -98,26 +108,31 @@ cards:
     cost: 2000
     needs:
       - 100 W
+      - 5000 GB
     provides:
-      - 1000 foods
+      - 40 foods
   Laboratory L:
-    points: 2 # this is complicated
+    points: +2x
     cost: 5000
     needs:
       - 300 W
       - 3 astronauts
+    quantity: 2
   Living Quarters L:
     cost: 1000
     needs:
       - 50 W
     provides:
       - 3 beds
+      - 1000 sports 
+    quantity: 3
   Gym:
     points: 1
     cost: 500
     needs:
       - 10 GB
       - 30 W
+      - 1 sport
   EVA:
     points: 2
     cost: 10000
@@ -125,18 +140,22 @@ cards:
       - 10 GB
       - 1 astronauts
   Laboratory S:
-    points: 1 # this is complicated
+    points: +1x
     cost: 2000
     needs:
       - 200 W
       - 1 astronauts
+    quantity: 3
   Living Quarters S:
     cost: 500
     needs:
       - 20 W
     provides:
       - 1 bed
+      - 1000 sports
+    quantity: 3
   Sample Return:
+    size: 0
     needs:
       - 2000 L
     provides:

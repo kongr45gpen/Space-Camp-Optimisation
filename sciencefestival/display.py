@@ -11,19 +11,22 @@ console = Console()
 print("Hello, [bold magenta]World[/bold magenta]!", ":vampire:")
 
 # Read all files in directory ending in JSON sorted
-for file in sorted(Path(".").glob("*.json")):
+for file in sorted(Path(".").glob("outputs/*.json")):
     js = file.read_text()
     content = json.loads(js)
 
-    print(Panel("Solution [blue]{}".format(file)))
+    print(Panel("[b]Solution [blue]{}".format(file), expand=False))
 
-    table = Table(title="Cards used")
+    table = Table()
 
     content["variables"] = {k: v for k, v in content["variables"].items() if v > 0}
+
 
     for card, quant in content["variables"].items():
         table.add_column(card[4:], justify="center", style="cyan", no_wrap=True)
     table.add_row(*[str(int(q)) for q in content["variables"].values()], style="magenta")
+
+    total_cards = sum(content["variables"].values())
 
     console.print(table)
 
@@ -31,6 +34,9 @@ for file in sorted(Path(".").glob("*.json")):
         if var in ["Score", "Cost"]:
             print("[bold]{}: [green]{:.0f}[/green][/bold]".format(var, quant), end="      ")
         else:
-            # Print without newline
             print("{}: {:.0f}".format(var, quant), end="    ")
+    print("€/Scor: [green]{:.2f}".format(content["intermediates"]["Cost"]/content["intermediates"]["Score"]))
+    print("Cards: [yellow]{:.0f}".format(total_cards))
+    print()
+    print()
     print()

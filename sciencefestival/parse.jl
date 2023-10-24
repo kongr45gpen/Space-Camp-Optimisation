@@ -6,7 +6,9 @@ data = YAML.load_file("data.yml")
 mutable struct Card
     id::String
     quantity::Int
+    size::Real
     points::Real
+    points_multiplier::Real
     cost::Real
     needs_resources::Dict{String, Int}
     needs_cards::Dict{String, Int}
@@ -100,11 +102,21 @@ function yaml_to_card(card_dict, id)
         end
     end
 
-    # Points is card["points" if exists] else zero
-    points = get(card, "points", 0)
+    points_multiplier = 0
+    points = 0
+    if "points" ∈ keys(card)
+        re = r"^\+(.*)x$"
+        multiplier = match(re, string(card["points"]))
+        if !isnothing(multiplier)
+            points_multiplier = parse(Float64, multiplier[1])
+        else
+            points = card["points"]
+        end
+    end
     cost = get(card, "cost", 0)
+    size = get(card, "size", 1)
 
-    card = Card(id, quantity, points, cost, needs_resources, needs_cards, provides_resources, [])
+    card = Card(id, quantity, size, points, points_multiplier, cost, needs_resources, needs_cards, provides_resources, [])
 
     @debug "Created card $(card)"
 
@@ -116,6 +128,8 @@ cards::Dict{String, Card} = Dict( yaml_to_card(card, generate_identifier(card[1]
 @info "Cards parsed successfully: " cards
 @info "Possible different options: " binomial(sum(map(c -> c.quantity, values(cards))), data["game"]["max_cards"])
 
+# Dictionary with [resource] key
+# Value is pair<needs, provides> (todo check)
 resource_basin::Dict{String, Pair{Dict{String,Real}, Dict{String,Real}}} = Dict()
 
 function add_to_basin_if_not_exists(resource)
@@ -182,20 +196,37 @@ for res ∈ collect(resource_basin)
     end
 end
 
-raw_resources_needed = [ resource_parser(r, 1) for r in data["game"]["needs"]]
+raw_resources_needed = Dict([ resource_parser(r, 1) for r in data["game"]["needs"]])
 
 @info "Cards expanded successfully" resource_basin
+@info "Raw resources needed" raw_resources_needed
 
 # Gather some cards
 cards_with_points = filter(c -> c.points != 0, collect(values(cards)))
 cards_with_cost = filter(c -> c.cost != 0, collect(values(cards)))
 
 # Equation generation engine (to improve at some point)
-quantity_equation = join(map(c -> c.id, values(cards)), " + ") * " <= " * string(data["game"]["max_cards"])
+quantity_equation = join(map(c -> c.id * " * " * string(c.size), values(cards)), " + ") * " <= " * string(data["game"]["max_cards"])
 
 cost_calculation = join(map(c -> string(c.cost) * "*" * c.id, cards_with_cost), " + ")
 
+score_multiplier = foldl((str, c) -> begin
+        if c.points_multiplier != 0
+            if !isempty(str)
+                str *= " + "
+            end
+
+            str *= string(c.points_multiplier) * "*" * c.id
+        end
+
+        return str
+    end,
+    values(cards);init=""
+)
 score_calculation = join(map(c -> string(c.points) * "*" * c.id, cards_with_points), " + ")
+if !isempty(score_multiplier)
+    score_calculation = "(" * score_multiplier * " + 1) * (" * score_calculation * ")"
+end
 
 intermediates = map(res -> begin
         name = clean_identifier(res[1])
@@ -203,22 +234,18 @@ intermediates = map(res -> begin
         name * " = " * join(rhs, " + ")
     end,
     collect(resource_basin))
-push!(intermediates, "Score = " * score_calculation)
+push!(intermediates, "price = " * cost_calculation)
+push!(intermediates, "xperience = " * score_calculation)
 
 resource_equations = map(res -> begin
         lhs = map(c -> string(c[2]) * "*" * name_to_id(c[1]), collect(res[2][1]))
         rhs = clean_identifier(res[1])
+        if haskey(raw_resources_needed, res[1])
+            push!(lhs, string(raw_resources_needed[res[1]]))
+        end
         join(lhs, " + ") * " <= " * rhs
     end,
-    filter(r -> !isempty(r[2][1]), collect(resource_basin))
-)
-
-raw_resource_equations = map(res -> begin
-    lhs = clean_identifier(res[1])
-    rhs = string(res[2])
-    lhs * " >= " * rhs
-end,
-collect(raw_resources_needed)
+    collect(resource_basin)
 )
 
 
@@ -230,7 +257,6 @@ big_string = "Variables\n" * join(variables, "\n") * "\nEnd Variables\n\n" *
     "Equations\n" *
     "maximize " * score_calculation * "\n\n" * quantity_equation *
     "\n" * join(resource_equations, "\n") *
-    "\n" * join(raw_resource_equations, "\n") *
     "\n" * "End Equations"
 
 @info "Generated APM output"
