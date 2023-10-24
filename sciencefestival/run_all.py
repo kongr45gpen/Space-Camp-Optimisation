@@ -53,17 +53,17 @@ print(s.m._model_name)
 
 #%% Full Solve
 
-s.m.solve()
+s.m.solve(debug=2)
 
 score, cost = save_results("max_1")
 
 s.m.Equation(s.xperience <= score-1)
-s.m.solve()
+s.m.solve(debug=2)
 
 score, cost = save_results("max_2")
 
 s.m.Equation(s.xperience <= score-1)
-s.m.solve()
+s.m.solve(debug=2)
 
 score, cost = save_results("max_3")
 
@@ -76,17 +76,17 @@ s.m.Equation(s.bed == 0)
 s.m.Equation(s.int_samp_retu == 1)
 #
 
-s.m.solve()
+s.m.solve(debug=2)
 
 score, cost = save_results("no_astronaut_1")
 
 s.m.Equation(s.xperience <= score-1)
-s.m.solve()
+s.m.solve(debug=2)
 
 score, cost = save_results("no_astronaut_2")
 
 s.m.Equation(s.xperience <= score-1)
-s.m.solve()
+s.m.solve(debug=2)
 
 score, cost = save_results("no_astronaut_3")
 
@@ -96,17 +96,17 @@ reload(s)
 
 s.m.Equation(s.bed == 0)
 s.m.Equation(s.int_samp_retu == 0)
-s.m.solve(disp=True)
+s.m.solve(debug=2)
 
 score, cost = save_results("no_return_1")
 
 s.m.Equation(s.xperience <= score-1)
-s.m.solve(disp=True)
+s.m.solve(debug=2)
 
 score, cost = save_results("no_return_2")
 
 s.m.Equation(s.xperience <= score-1)
-s.m.solve(disp=True)
+s.m.solve(debug=2)
 
 score, cost = save_results("no_return_3")
 
@@ -117,17 +117,17 @@ reload(s)
 s.efficiency = s.m.Intermediate(s.price / (s.xperience + 0.01), name="efficiency")
 s.m._objectives[0] = 'minimize ((price)/(xperience + 0.01))'
 s.m.Equation(s.xperience >= 1)
-s.m.solve(disp=True)
+s.m.solve(debug=2)
 
 save_results("zcheapest_1")
 
 s.m.Equation(s.efficiency > s.efficiency.VALUE[0] * 1.01)
-s.m.solve(disp=True)
+s.m.solve(debug=2)
 
 save_results("zcheapest_2")
 
 s.m.Equation(s.efficiency > s.efficiency.VALUE[0] * 1.01)
-s.m.solve(disp=True)
+s.m.solve(debug=2)
 
 save_results("zcheapest_3")
 
@@ -140,17 +140,17 @@ s.m._objectives[0] = 'minimize ((price)/(xperience + 0.01))'
 s.m.Equation(s.xperience >= 1)
 s.m.Equation(s.bed >= 1)
 s.m.Equation(s.food >= 1)
-s.m.solve(disp=True)
+s.m.solve(debug=2)
 
 save_results("zcheapest_astronauts_1")
 
 s.m.Equation(s.efficiency > s.efficiency.VALUE[0] * 1.01)
-s.m.solve(disp=True)
+s.m.solve(debug=2)
 
 save_results("zcheapest_astronauts_2")
 
 s.m.Equation(s.efficiency > s.efficiency.VALUE[0] * 1.01)
-s.m.solve(disp=True)
+s.m.solve(debug=2)
 
 save_results("zcheapest_astronauts_3")
 

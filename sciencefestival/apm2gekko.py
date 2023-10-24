@@ -53,8 +53,8 @@ def convertAPM(modelfile):
         print('m = GEKKO(remote=False)', file=f_new)
         print('m.options.SOLVER=1', file=f_new)
         print(
-            'm.solver_options = [\'minlp_maximum_iterations 30000\', \'minlp_max_iter_with_int_sol 30000\']', file=f_new)
-        print('m.solver_options = [\'minlp_maximum_iterations 20000\', \'minlp_max_iter_with_int_sol 30000\']', file=f_new)
+            'm.solver_options = [\'minlp_maximum_iterations 40000\', \'minlp_max_iter_with_int_sol 40000\']', file=f_new)
+        print('m.solver_options = [\'minlp_maximum_iterations 40000\', \'minlp_max_iter_with_int_sol 40000\']', file=f_new)
         print('', file=f_new)
 
         for line in lines:

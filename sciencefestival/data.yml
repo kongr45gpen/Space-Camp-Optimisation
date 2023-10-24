@@ -26,7 +26,7 @@ cards:
       - 200 Wh
     quantity: 4
   Battery LiIon:
-    cost: 200
+    cost: 500
     provides:
       - 600 Wh
     quantity: 3
@@ -149,7 +149,7 @@ cards:
   Living Quarters S:
     cost: 500
     needs:
-      - 20 W
+      - 30 W
     provides:
       - 1 bed
       - 40 sports
