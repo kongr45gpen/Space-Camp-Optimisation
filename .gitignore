@@ -1,0 +1,12 @@
+solution_*
+system_*.htm
+slk_*
+int_*
+*.out
+*.rpt
+*.php
+*.t0
+__pycache__
+.vscode
+outputs
+apmonitor
